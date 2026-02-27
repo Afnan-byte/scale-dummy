@@ -5,6 +5,7 @@ import Image from "next/image";
 
 import Registration from "./Registration";
 import AiModalPop from "./AiModalPop";
+import { analytics } from "@/lib/analytics";
 
 function Hero() {
   const [isRegisterModalOpen, setIsRegisterModalOpen] = useState(false);
@@ -127,7 +128,10 @@ function Hero() {
           </div>
           <div className="flex mt-10 lg:hidden">
             <button
-              onClick={() => setIsRegisterModalOpen(true)}
+              onClick={() => {
+                setIsRegisterModalOpen(true);
+                analytics.heroRegisterClick();
+              }}
               className="lg:w-[481px]
                 flex items-center justify-between
                 bg-[#9df094] hover:bg-[#b0f5a8] 
@@ -197,7 +201,10 @@ function Hero() {
           {/* Register Button */}
           <div className="flex mb-2 mt-10">
             <button
-              onClick={() => setIsRegisterModalOpen(true)}
+              onClick={() => {
+                setIsRegisterModalOpen(true);
+                analytics.heroRegisterClick();
+              }}
               className="w-[441px] xl:w-[481px]
       flex items-center justify-between
       bg-[#9df094] hover:bg-[#b0f5a8]

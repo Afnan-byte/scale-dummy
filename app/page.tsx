@@ -8,10 +8,15 @@ import Involved from "@/components/Involved";
 import Navbar from "@/components/Navbar";
 import { Whatsapp } from "@/components/whatsapp";
 import Marque from "@/components/Marque";
+import { analytics } from "@/lib/analytics";
 
 export default function Home() {
   const [open, setOpen] = useState(false);
   const hasShown = useRef(false);
+
+  useEffect(() => {
+    analytics.flowStart();
+  }, []);
 
   useEffect(() => {
     // Check if showing for the first time (safe for environments without localStorage)

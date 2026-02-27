@@ -148,6 +148,7 @@ const AvatarGeneratorModal: React.FC<AvatarGeneratorModalProps> = ({
   useEffect(() => {
     if (isOpen) {
       document.body.style.overflow = "hidden";
+      analytics.avatarModalOpen();
       try {
         window.dispatchEvent(new CustomEvent("avatar-modal-opened"));
       } catch { }

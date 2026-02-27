@@ -32,13 +32,20 @@ export const trackEvent = ({
 
 // Helper for common events
 export const analytics = {
-  registrationOpen: () => trackEvent({ action: "registration_open", category: "engagement" }),
+  // Funnel Steps
+  flowStart: () => trackEvent({ action: "flow_step_1_visit", category: "funnel" }),
+  heroRegisterClick: () => trackEvent({ action: "flow_step_2_hero_click", category: "funnel" }),
+  registrationOpen: () => trackEvent({ action: "flow_step_3_reg_open", category: "funnel" }),
   registrationSuccess: (method: string) => 
-    trackEvent({ action: "registration_success", category: "engagement", label: method }),
+    trackEvent({ action: "flow_step_4_reg_success", category: "funnel", label: method }),
+  goToAvatarClick: () => trackEvent({ action: "flow_step_5_go_to_avatar", category: "funnel" }),
+  avatarModalOpen: () => trackEvent({ action: "flow_step_6_avatar_open", category: "funnel" }),
   imageGenStart: (type: string) => 
-    trackEvent({ action: "image_gen_start", category: "generation", label: type }),
+    trackEvent({ action: "flow_step_7_gen_start", category: "funnel", label: type }),
   imageGenSuccess: (type: string) => 
-    trackEvent({ action: "image_gen_success", category: "generation", label: type }),
+    trackEvent({ action: "flow_step_8_gen_success", category: "funnel", label: type }),
+  
+  // Interactions
   imageGenError: (error: string) => 
     trackEvent({ action: "image_gen_error", category: "error", label: error }),
   imageGenDownload: (type?: string) => 

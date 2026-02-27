@@ -1260,7 +1260,10 @@ function SuccessModal({
 
         {/* Next Step Button */}
         <button
-          onClick={() => setStep("avatar")}
+          onClick={() => {
+            setStep("avatar");
+            analytics.goToAvatarClick();
+          }}
           disabled={loading}
           className="w-full py-4 mb-10 bg-indigo-600 text-white font-semibold rounded-xl hover:bg-indigo-700 transition-all shadow-md disabled:opacity-50 disabled:cursor-not-allowed"
         >
