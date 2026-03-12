@@ -63,7 +63,7 @@ export default function PartnersSection() {
 
               <img
                 src={partner.logo}
-                className="max-h-full object-contain opacity-80 hover:opacity-100"
+                className="max-h-full object-contain "
               />
 
             </div>
