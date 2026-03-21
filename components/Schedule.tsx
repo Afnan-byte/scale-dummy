@@ -1,149 +1,278 @@
 "use client";
 
 import React from "react";
+import { useScheduleData } from "@/lib/useScheduleData";
+import type { ScheduleItem } from "@/lib/googleSheets";
 
-const scheduleData = [
+// ─────────────────────────────────────────
+// 🎨 TYPE CONFIG
+// ─────────────────────────────────────────
+const typeConfig: Record<
+  string,
   {
-    startTime: "6:55 PM",
-    endTime: "7:40 PM",
-    type: "Panel Discussion",
-    title: "Young Founders, Big Dreams",
-    posterImg: "/assets/images/Schedule/poster.png",
-    speakers: [
-      { name: "Muhammed Aadil", role: "Founder", img: "/assets/images/Schedule/avatar1.png" },
-      { name: "Ansar M P", role: "CEO", img: "/assets/images/Schedule/avatar1.png" },
-    ],
+    badge: string;
+    textColor: string;
+    iconBg: string;
+    icon: string;
+    cardAccent: string;
+    avatarBg: string;
+  }
+> = {
+  "Expert Talk": {
+    badge: "bg-[#DFF5E1]",
+    textColor: "text-[#2E7D32]",
+    iconBg: "bg-[#2E7D32]",
+    icon: "/assets/images/Schedule/icon1.png",
+    cardAccent: "border-[#2E7D32]",
+    avatarBg: "bg-[#E8F5E9]",
   },
-  {
-    startTime: "7:45 PM",
-    endTime: "8:15 PM",
-    type: "Panel Discussion",
-    title: "Scaling Startups",
-    posterImg: "/assets/images/Schedule/poster.png",
-    speakers: [
-      { name: "Aadil", role: "Founder", img: "/assets/images/Schedule/avatar1.png" },
-    ],
-  },
-  {
-    startTime: "8:20 PM",
-    endTime: "9:00 PM",
-    type: "Panel Discussion",
-    title: "Future of AI",
-    posterImg: "/assets/images/Schedule/poster.png",
-    speakers: [
-      { name: "Irfan", role: "Founder", img: "/assets/images/Schedule/avatar1.png" },
-    ],
-  },
-  {
-    startTime: "9:05 PM",
-    endTime: "9:45 PM",
-    type: "Panel Discussion",
-    title: "Investor Talk",
-    posterImg: "/assets/images/Schedule/poster.png",
-    speakers: [
-      { name: "Aadil", role: "Founder", img: "/assets/images/Schedule/avatar1.png" },
-    ],
-  },
-];
 
-const typeConfig: Record<string, { badge: string; icon: string }> = {
+  "Fireside Chat": {
+    badge: "bg-[#FFE8D6]",
+    textColor: "text-[#FF6D00]",
+    iconBg: "bg-[#FF6D00]",
+    icon: "/assets/images/Schedule/icon2.png",
+    cardAccent: "border-[#FF6D00]",
+    avatarBg: "bg-[#FFF3E0]",
+  },
+
   "Panel Discussion": {
-    badge: "bg-[#E8F2FF] text-[#4285F4]",
+    badge: "bg-[#E8F2FF]",
+    textColor: "text-[#4285F4]",
+    iconBg: "bg-[#4285F4]",
     icon: "/assets/images/Schedule/icon.png",
+    cardAccent: "border-[#4285F4]",
+    avatarBg: "bg-[#E3F2FD]",
+  },
+
+  "Inaugration": {
+    badge: "bg-[#fff1b8]",
+    textColor: "text-[#d8b940]",
+    iconBg: "bg-[#d8b940]",
+    icon: "/assets/images/Schedule/icon3.png",
+    cardAccent: "border-[#d8b940]",
+    avatarBg: "bg-[#FFF3CD]",
+  },
+
+  "Workshop": {
+    badge: "bg-[#f6d2ff]",
+    textColor: "text-[#9310b4]",
+    iconBg: "bg-[#9310b4]",
+    icon: "/assets/images/Schedule/icon4.png",
+    cardAccent: "border-[#9310b4]",
+    avatarBg: "bg-[#F3E5F5]",
+  },
+
+  DEFAULT: {
+    badge: "bg-gray-100",
+    textColor: "text-gray-700",
+    iconBg: "bg-gray-500",
+    icon: "/assets/icons/default.svg",
+    cardAccent: "border-gray-300",
+    avatarBg: "bg-gray-100",
   },
 };
 
-function ScheduleCard({ item }: { item: (typeof scheduleData)[0] }) {
-  const cfg = typeConfig[item.type];
+// ─────────────────────────────────────────
+// 🧠 SMART TYPE MATCH
+// ─────────────────────────────────────────
+function getTypeConfig(type: string) {
+  const t = type?.toLowerCase().trim();
 
+  if (t.includes("expert")) return typeConfig["Expert Talk"];
+  if (t.includes("fire")) return typeConfig["Fireside Chat"];
+  if (t.includes("panel")) return typeConfig["Panel Discussion"];
+  if (t.includes("inaug")) return typeConfig["Inaugration"];
+  if (t.includes("work")) return typeConfig["Workshop"];
+
+  return typeConfig.DEFAULT;
+}
+
+// ─────────────────────────────────────────
+// Skeleton
+// ─────────────────────────────────────────
+function SkeletonCard() {
   return (
-    <div className="bg-white rounded-2xl p-4 flex gap-4 border border-gray-100 shadow-sm w-full">
-
-      {/* Poster */}
-      <div className="hidden sm:block w-[90px] flex-shrink-0">
-        <img src={item.posterImg} className="w-full h-full object-cover rounded-lg" />
-      </div>
-
-      {/* Content */}
-      <div className="flex-1">
-
-        {/* Top */}
-        <div className="flex justify-between items-center mb-2">
-          <div className={`px-2 py-1 rounded-full text-[10px] flex items-center gap-1 ${cfg.badge}`}>
-            <img src={cfg.icon} className="w-3 h-3" />
-            {item.type}
-          </div>
-
-          <div className="bg-black text-white px-2 py-1 rounded-full text-[10px]">
-            {item.startTime}
-          </div>
+    <div className="bg-white rounded-2xl p-4 flex gap-4 border border-gray-100 shadow-sm w-full animate-pulse">
+      <div className="hidden sm:block w-[90px] bg-gray-200 rounded-lg" />
+      <div className="flex-1 space-y-3">
+        <div className="flex justify-between">
+          <div className="h-5 w-28 bg-gray-200 rounded-full" />
+          <div className="h-5 w-16 bg-gray-200 rounded-full" />
         </div>
-
-        {/* Title */}
-        <h3 className="text-sm font-semibold mb-2 leading-tight">
-          {item.title}
-        </h3>
-
-        {/* Speakers */}
-        <div className="flex gap-2">
-          {item.speakers.map((s, i) => (
-            <div key={i} className="text-center w-[50px]">
-              <div className="bg-blue-500 rounded-lg h-[50px] relative mb-1">
-                <img
-                  src={s.img}
-                  className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[110%] h-[110%] object-contain"
-                />
-              </div>
-              <p className="text-[9px] font-medium">{s.name}</p>
-            </div>
-          ))}
-        </div>
+        <div className="h-4 w-3/4 bg-gray-200 rounded" />
       </div>
     </div>
   );
 }
 
-export default function TimelinePage() {
+// ─────────────────────────────────────────
+// Schedule Card
+// ─────────────────────────────────────────
+function ScheduleCard({ item }: { item: ScheduleItem }) {
+  const cfg = getTypeConfig(item.type);
+
   return (
-    <main className="min-h-screen bg-[#F8F9FB] py-10 px-4">
+    <div
+      className={`bg-white rounded-2xl p-4 flex gap-4 border-l-4 ${cfg.cardAccent} shadow-sm w-full`}
+    >
+      {/* Poster (ONLY if exists) */}
+      <div className="hidden sm:block w-[150px] flex-shrink-0">
+        {item.posterImg && (
+          <img
+            src={item.posterImg}
+            alt={item.title}
+            className="w-full h-full object-cover rounded-lg"
+          />
+        )}
+      </div>
 
+      {/* Content */}
+      <div className="flex-1">
+        {/* Badge + Time */}
+        <div className="flex justify-between items-center mb-2">
+          <div
+            className={`px-3 py-1 rounded-full flex items-center gap-2 text-[10px] ${cfg.badge}`}
+            style={{ fontFamily: "Calsans, sans-serif" }}
+          >
+            <div
+              className={`w-4 h-4 rounded-full flex items-center justify-center ${cfg.iconBg}`}
+            >
+              <img src={cfg.icon} className="w-2.5 h-2.5" alt="" />
+            </div>
+
+            <span className={`${cfg.textColor}`}>
+              {item.type || "Session"}
+            </span>
+          </div>
+
+          <div className="bg-black text-white px-2 py-1 rounded-full text-[10px]">
+            {item.startTime}
+            {item.endTime ? ` – ${item.endTime}` : ""}
+          </div>
+        </div>
+
+        {/* Title */}
+        <h3
+          className={`text-sm mb-2 mt-5 leading-tight ${cfg.textColor}`}
+          style={{ fontFamily: "Calsans, sans-serif" }}
+        >
+          {item.title}
+        </h3>
+
+        {/* Speakers */}
+        {item.speakers.length > 0 && (
+          <div className="flex gap-2 flex-wrap">
+            {item.speakers.map((s, i) => (
+              <div key={i} className="text-center w-[50px]">
+                <div
+                  className={`${cfg.avatarBg} rounded-lg h-[50px] relative mb-1`}
+                >
+                  {s.img && (
+                    <img
+                      src={s.img}
+                      alt={s.name}
+                      className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[110%] h-[110%] object-contain"
+                    />
+                  )}
+                </div>
+
+                <p
+                  className={`text-[9px] leading-tight ${cfg.textColor}`}
+                  style={{ fontFamily: "Calsans, sans-serif" }}
+                >
+                  {s.name}
+                </p>
+
+                {s.role && (
+                  <p
+                    className="text-[8px] text-gray-500 leading-tight"
+                    style={{ fontFamily: "Calsans, sans-serif" }}
+                  >
+                    {s.role}
+                  </p>
+                )}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─────────────────────────────────────────
+// Main Page
+// ─────────────────────────────────────────
+export default function TimelinePage() {
+  const { data, loading, error } = useScheduleData();
+
+  return (
+    <main className="min-h-screen bg-[#F8F9FB] py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
+      {/* Header */}
+      <div className="mb-10 lg:mb-16 grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-6 lg:gap-12 items-center max-w-7xl mx-auto">
+        <div className="flex flex-col items-center lg:items-start">
+          <div className="mt-3 inline-flex items-center justify-center px-5 py-2.5 border-2 border-black rounded-full bg-white">
+            <span className="text-lg sm:text-xl lg:text-3xl">
+              Event Schedule
+            </span>
+          </div>
+        </div>
+
+        <p className="text-base sm:text-lg lg:text-2xl text-gray-600">
+          ScaleUp 2026 brings diverse experts, leaders, innovators empowering
+          entrepreneurs with global insights, collaboration, and unstoppable
+          business growth.
+        </p>
+      </div>
+
+      {/* Timeline */}
       <div className="relative max-w-6xl mx-auto">
-
-        {/* DESKTOP CENTER LINE */}
-        <div className="hidden md:block absolute left-1/2 top-0 h-full w-[2px] bg-gray-300 -translate-x-1/2"></div>
-
-        {/* MOBILE LEFT LINE */}
-        <div className="md:hidden absolute left-4 top-0 h-full w-[2px] bg-gray-300"></div>
+        <div className="hidden md:block absolute left-1/2 top-0 h-full w-[2px] bg-gray-300 -translate-x-1/2" />
+        <div className="md:hidden absolute left-4 top-0 h-full w-[2px] bg-gray-300" />
 
         <div className="flex flex-col gap-10">
-
-          {scheduleData.map((item, index) => {
-            const isLeft = index % 2 === 0;
-
-            return (
-              <div key={index} className="relative flex items-center">
-
-                {/* DOT */}
-                <div className="absolute md:left-1/2 left-4 w-3 h-3 bg-blue-500 rounded-full -translate-x-1/2 z-10"></div>
-
-                {/* DESKTOP LEFT */}
-                <div className={`hidden md:flex w-1/2 ${isLeft ? "pr-8 justify-end" : ""}`}>
-                  {isLeft && <ScheduleCard item={item} />}
-                </div>
-
-                {/* DESKTOP RIGHT */}
-                <div className={`hidden md:flex w-1/2 ${!isLeft ? "pl-8 justify-start" : ""}`}>
-                  {!isLeft && <ScheduleCard item={item} />}
-                </div>
-
-                {/* MOBILE STACKED */}
-                <div className="md:hidden w-full pl-10">
-                  <ScheduleCard item={item} />
-                </div>
-
+          {loading &&
+            Array.from({ length: 4 }).map((_, i) => (
+              <div key={i} className="md:hidden w-full pl-10">
+                <SkeletonCard />
               </div>
-            );
-          })}
+            ))}
+
+          {error && (
+            <p className="text-red-500 text-sm text-center">{error}</p>
+          )}
+
+          {!loading &&
+            data.map((item, index) => {
+              const isLeft = index % 2 === 0;
+
+              return (
+                <div key={index} className="relative flex items-center">
+                  <div className="absolute md:left-1/2 left-4 w-3 h-3 bg-blue-500 rounded-full -translate-x-1/2" />
+
+                  <div
+                    className={`hidden md:flex w-1/2 ${
+                      isLeft ? "pr-8 justify-end" : ""
+                    }`}
+                  >
+                    {isLeft && <ScheduleCard item={item} />}
+                  </div>
+
+                  <div
+                    className={`hidden md:flex w-1/2 ${
+                      !isLeft ? "pl-8 justify-start" : ""
+                    }`}
+                  >
+                    {!isLeft && <ScheduleCard item={item} />}
+                  </div>
+
+                  <div className="md:hidden w-full pl-10">
+                    <ScheduleCard item={item} />
+                  </div>
+                </div>
+              );
+            })}
         </div>
       </div>
     </main>
