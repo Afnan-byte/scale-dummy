@@ -118,7 +118,7 @@ Be part of Kerala's biggest AI & Technology Conclave and connect with innovators
                     />
                   </div>
 
-                  <h3 className="mt-6 sm:mt-8 font-bold font-plusJakarta text-lg sm:text-xl lg:text-2xl text-white">
+                  <h3 className="mt-6 sm:mt-8 font-extralight font-plusJakarta text-lg sm:text-xl lg:text-2xl text-white" style={{ fontFamily: "Calsans, sans-serif" }}>
                     {card.title}
                   </h3>
 

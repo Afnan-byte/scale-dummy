@@ -50,7 +50,7 @@ function DateSection() {
       <div className="font-gilmer leading-[42px] md:leading-[85.97px] p-4 text-2xl sm:text-3xl md:text-[60px] text-left"
         style={{ color: "var(--color-text)", fontWeight: "600" }}
       >
-        <p className="flex items-center justify-start gap-2 text-3xl md:text-[60px]">
+        <p className="flex items-center justify-start gap-2 font-light text-3xl md:text-[60px]" style={{ fontFamily: "Calsans, sans-serif" }}>
           2 Days
           <img
             src="/assets/images/star_icon.svg"
@@ -58,7 +58,7 @@ function DateSection() {
             className="h-6 w-6 md:h-9 md:w-9"
           />
         </p>
-        <p className="flex items-center justify-start gap-2 text-3xl sm:text-2xl md:text-[60px]">
+        <p className="flex items-center justify-start gap-2 text-3xl font-light sm:text-2xl md:text-[60px]" style={{ fontFamily: "Calsans, sans-serif" }}>
           50+ Speakers
           <img
             src="/assets/images/Union.svg"
@@ -66,7 +66,7 @@ function DateSection() {
             className="h-6 w-6 md:h-9 md:w-9"
           />
         </p>
-        <p className="flex items-center justify-start gap-2 text-3xl sm:text-2xl md:text-[60px]">
+        <p className="flex items-center justify-start gap-2 text-3xl font-light sm:text-2xl md:text-[60px]" style={{ fontFamily: "Calsans, sans-serif" }}>
           5000+ Innovators
           <img
             src="/assets/images/four_dot.svg"
@@ -86,7 +86,7 @@ function DateSection() {
             >
               <span
                 className="text-4xl  sm:text-4xl md:text-8xl tracking-[0.10em]"
-                style={{ color: "#000000", fontWeight: "700" }}
+                style={{ color: "#000000", fontWeight: "400", fontFamily: "Calsans, sans-serif" }}
               >
                 {value}
               </span>
