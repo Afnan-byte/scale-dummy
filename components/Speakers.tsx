@@ -55,22 +55,26 @@ export default function SpeakersSection() {
     <section className="bg-gray-50 py-12 sm:py-16 lg:py-24 px-4 sm:px-6 lg:px-8">
       <div className="max-w-7xl mx-auto">
 
-        {/* Title Section */}
-        <div className="mb-10 lg:mb-16 grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-6 lg:gap-12 items-center">
-
-          <div className="flex flex-col items-center lg:items-start">
-            <div className="mt-3 inline-flex items-center justify-center px-5 py-2.5 border-2 border-black rounded-full bg-white">
-              <span className="text-lg sm:text-xl lg:text-3xl">
+       
+        <div className="mb-10 lg:mb-16 grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-6 lg:gap-12 items-center max-w-7xl mx-auto">
+  {/* Title */}
+  <div className="flex flex-col items-center lg:items-start">
+    <div className="mt-3 inline-flex items-center justify-center px-5 py-2.5 border-2 border-black rounded-full bg-white">
+      <span
+        className="text-lg sm:text-xl lg:text-3xl"
+        style={{ fontFamily: "Calsans, sans-serif" }}
+      >
                 Scaleup Speakers
-              </span>
-            </div>
-          </div>
+      </span>
+    </div>
+  </div>
 
-          <p className="text-base sm:text-lg lg:text-2xl text-gray-600">
-            ScaleUp 2026 brings diverse experts, leaders, innovators empowering entrepreneurs with global insights.
-          </p>
+  {/* Subtitle */}
+  <p className="text-base sm:text-lg lg:text-2xl text-gray-600">
+                ScaleUp 2026 brings diverse experts, leaders, innovators empowering entrepreneurs with global insights.
 
-        </div>
+  </p>
+</div>
 
         {/* Speakers Grid */}
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4 sm:gap-6">

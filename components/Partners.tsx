@@ -44,13 +44,16 @@ export default function PartnersSection() {
 
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
 
-        <div className="flex justify-center mb-14">
-
-          <span className="inline-block border border-b-black rounded-4xl px-10 py-2.5 text-[20px] font-bold tracking-[0.3em] uppercase text-black bg-white ">
-            Partners
-          </span>
-
-        </div>
+         <div className="flex justify-center mb-10">
+  <div className="inline-flex items-center justify-center px-6 py-3 border-2 border-black rounded-full bg-white">
+    <span
+      className="text-lg sm:text-xl lg:text-3xl text-center"
+      style={{ fontFamily: "Calsans, sans-serif" }}
+    >
+      Partners
+    </span>
+  </div>
+</div>
 
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
 
