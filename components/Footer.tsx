@@ -22,7 +22,7 @@ function Footer() {
       type: "icon",
       icon: <Instagram size={25} />,
       alt: "Instagram",
-      link: "https://www.instagram.com/scaleup_village/?igsh=MTMzYXhhOTBzbnRsNQ%3D%3D",
+      link: "https://www.instagram.com/scaleup_village/",
     },
     {
       type: "icon",
