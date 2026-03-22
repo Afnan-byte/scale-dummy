@@ -104,8 +104,8 @@ function Footer() {
                   </svg>
                 </div>
                 <h2
-                  className="font-gilmer text-2xl md:text-4xl font-semibold"
-                  style={{ color: "#FFFFFF" }}
+                  className="font-gilmer text-2xl md:text-4xl font-medium"
+                  style={{ color: "#FFFFFF", fontFamily: "Calsans, sans-serif" }}
                 >
                   Scale to <br /> Intelligence
                 </h2>

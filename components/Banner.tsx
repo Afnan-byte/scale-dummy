@@ -14,7 +14,7 @@ function Banner() {
         <div className="flex flex-col gap-6 md:w-1/2">
           <h1
             className="text-2xl sm:text-3xl md:text-5xl font-medium leading-snug p-6 md:p-9"
-            style={{ color: "var(--color-bg)" }}
+            style={{ color: "var(--color-bg)", fontFamily: "Calsans, sans-serif" }}
           >
             Want to Get <br /> Notified when we <br />
             release amazings?

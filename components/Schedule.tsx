@@ -166,7 +166,7 @@ function ScheduleCard({ item }: { item: ScheduleItem }) {
                   )}
                 </div>
                 <p
-                  className={`text-[12px] leading-tight ${cfg.textColor}`}
+                  className={`text-[11px] leading-tight ${cfg.textColor}`}
                   style={{ fontFamily: "Calsans, sans-serif" }}
                 >
                   {s.name}
