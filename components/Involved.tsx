@@ -41,17 +41,27 @@ export default function Involved() {
     <section className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       {/* Header */}
       <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between mb-12 gap-6">
-        <div className="flex-1">
-          <h2 className="font-semibold font-plusJakarta text-4xl sm:text-5xl lg:text-[60px] text-[#202020]">
+        
+         <div className="mb-10 lg:mb-16 grid grid-cols-1 lg:grid-cols-[auto_1fr] gap-6 lg:gap-12 items-center max-w-7xl mx-auto">
+  {/* Title */}
+  <div className="flex flex-col items-center lg:items-start">
+    <div className="mt-3 inline-flex items-center justify-center px-5 py-2.5 border-2 border-black rounded-full bg-white">
+      <span
+        className="text-lg sm:text-xl lg:text-3xl"
+        style={{ fontFamily: "Calsans, sans-serif" }}
+      >
             Get Involved
-          </h2>
+      </span>
+    </div>
+  </div>
 
-          <p className="mt-4 font-light font-plusJakarta text-base sm:text-lg lg:text-[28px] leading-snug lg:leading-[36px] text-gray-600">
-            Be part of Kerala's biggest AI & Technology Conclave and connect
-            <br className="hidden sm:block" />
-            with innovators, leaders, and enthusiasts from across the country.
-          </p>
-        </div>
+  {/* Subtitle */}
+  <p className="text-base sm:text-lg lg:text-2xl text-gray-600">
+Be part of Kerala's biggest AI & Technology Conclave and connect with innovators, leaders, and enthusiasts from across the country.
+
+  </p>
+</div>
+        
 
         {/* Decorative icon only on laptop */}
         <img
